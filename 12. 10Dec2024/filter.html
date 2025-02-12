@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Signin & Login</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #cccccc;
+        }        
+
+        /* Sidebar */
+        .sidebar{
+            position: fixed;
+            top: 0px;
+            right: -240px;
+            height: 100vh;
+            width: 240px;
+            background-color: #ffffff;
+            transition: 0.5s;
+            z-index: 15;
+        }
+        .sidebar:after{
+            content: "";
+            bottom: 0;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 349px;
+            background-color: #FF8D29;
+            z-index: -2;
+        }
+
+         /* Checkbox For Sidebar(Toggle Button) */
+         .pull{
+            display: none;
+         }
+         .sidelogo{
+            position: absolute;
+            right: 0px;
+            transition: 0.5s;
+         }
+        .pull:checked +.sidelogo{
+            transform: translateX(-150px);
+        }
+        .pull:checked ~.sidebar{
+            transform: translateX(-150px);
+        } 
+
+
+        /* List In Sidebar */
+        .sidebar ul li{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 22px;
+            list-style: none;
+            margin-block: 35px ;
+            width: 70%;
+            text-align: left;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #FF8D29;
+            border-radius: 20px 0px 0px 20px;
+            z-index: 20;
+        }
+        .sidebar ul li a{
+            text-decoration: none;
+            color: black;
+        }
+        .sidebar ul li:hover{
+            cursor: pointer;
+        }
+        .sidebar ol{
+            margin-top: 170px;
+        }
+        .sidebar ol li{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 22px;
+            list-style: none;
+            margin-block: 35px ;
+            width: 70%;
+            text-align: left;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #ffffff;
+            border-radius: 20px 0px 0px 20px;
+            z-index: 20;
+        }
+        .sidebar ol li a{
+            text-decoration: none;
+            color: black;
+        }
+        .sidebar ol li:hover{
+            cursor: pointer;
+        }
+
+        /* main 100vh 100vw*/
+        .main{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+        }
+        .main::before{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 350px;
+            background-color: #FF8D29;
+        }
+
+        /* Image Box1 flex*/
+        .main .container{
+            height: 80vh;
+            width: 70vh;
+        }
+        .main .container img{
+            height: inherit;
+            width: inherit;
+            filter: drop-shadow(10px 4px 15px rgb(0, 0, 0));
+        }
+
+        /*Outer and Inner Box2 flex*/
+        .main .outer{
+            position: relative;
+            height: 80vh;
+            width: 50vw;
+        }
+        .main .outer .title{
+            position: absolute;
+            top: 0px;
+            width: 390px;
+            font-family: math;
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 4px 8px 10px rgb(31, 31, 31);
+        }
+        
+        /* Inner */
+        .main .outer .inner{
+            border-radius: 5px;
+            position: relative;
+            top: 110px;
+            bottom: 0px;
+            height: 65vh;
+            width: 100%;
+            box-shadow: inset   5px 5px 20px 0.5px;
+            background-color: #FF8D29;
+        }
+        .main .outer .inner::after{
+            content: "";
+            bottom: 0;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            box-shadow: inset   5px 5px 20px 0.5px;
+            background-color: #ffffff;
+        }
+
+         /* Checkbox For Switch(Login Text) */
+        .main .outer .inner .login_logo{
+            position: absolute;
+            top: -38px;
+            right: 230px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+            margin-left: 225px;
+        }
+        .main .outer .inner .login_logo a{
+            text-decoration: none;
+            color: black;
+        }
+
+         /* Checkbox For Switch(Toggle Button) */
+        .label{
+            position: absolute;
+            top: -37px;
+            right: 133px;
+            background-color: #ffffff;
+            height: 35px;
+            width: 80px;
+            border: 3px solid #FF8D29;
+            border-radius: 20px;
+            padding: 1px;
+        }
+        .label .circle{
+            width: 40%;
+            height: 100%;
+            background-color: #FF8D29;
+            border-radius: 50%;
+            padding: 1px;
+            transition: 0.5s;
+        }
+        .switch:checked +.label>.circle{
+            transform: translateX(40px);
+        }
+
+         /* Checkbox For Switch(Signin Text) */
+        .main .outer .inner .signin_logo{
+            position: absolute;
+            top: -38px;
+            right: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+        }
+        .main .outer .inner .signin_logo a{
+            text-decoration: none;
+            color: black;
+        }
+        .main .outer .inner .switch{
+            position: absolute;
+            top: -18px;
+            right: 150px;
+        }
+        .main .outer .inner .switch:checked ~.registration{
+            transform: rotateX(0deg);
+        }
+        .main .outer .inner .switch:checked ~.login{
+            transform:rotateX(180deg);
+        }
+        /* Registration page */
+        .main .outer .inner .registration{
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0px;
+            height: 57vh;
+            width: 93%;
+            box-shadow: 5px 5px 20px 0.5px;
+            background-color: #ffffff;
+            margin: 30px;
+            z-index: 5;
+            transition: all 1s;
+            transform: rotateX(-180deg);
+            backface-visibility: hidden;
+        }
+        .main .outer .inner .registration fieldset{
+            margin: 20px;
+            border: 3px solid black;
+        }
+        .main .outer .inner .registration fieldset legend{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 30px;
+            margin-inline: 20px;
+            color: black;
+        }
+        .main .outer .inner .registration fieldset form{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 26px;
+            color: black;
+        }
+        .main .outer .inner .registration fieldset form label{
+            margin: 0px 0px 0px 20px;
+        }
+        .main .outer .inner .registration fieldset form input{
+            height: 20px;
+            width: 207px;
+            border:none;
+            background-color: transparent;
+            border-bottom: 2px solid black;
+            margin: 0px 0px 20px 20px;
+        }
+        .main .outer .inner .registration fieldset form button{
+            border-radius: 5px;
+            height: 45px;
+            width: 100px;
+            font-family: math;
+            font-weight: 800;
+            font-size: 18px;
+            margin: 0px 0px 15px 20px;
+            background-color: #ffffff;
+        }
+        .main .outer .inner .registration fieldset form button:hover{
+            height: 45px;
+            width: 100px;
+            font-family: math;
+            font-size: 18px;
+            margin: 0px 0px 15px 20px;
+            background-color: #FF8D29;
+        }
+
+        /* Login Page */
+        .main .outer .inner .login{
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0px;
+            height: 57vh;
+            width: 93%;
+            box-shadow: 5px 5px 20px 0.5px;
+            background-color: rgb(255, 141, 41);
+            margin: 30px;
+            z-index: 10;
+            transition: all 1s;
+            backface-visibility: hidden;
+        }
+        .main .outer .inner .login{
+            position: absolute;
+            bottom: 0px;
+            height: 57vh;
+            width: 93%;
+            box-shadow: 5px 5px 20px 0.5px;
+            background-color: rgb(255, 141, 41);
+            margin: 30px;
+            z-index: 6;
+        }
+        .main .outer .inner .login fieldset{
+            margin: 20px;
+            border: 3px solid black;
+        }
+        .main .outer .inner .login fieldset legend{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 30px;
+            margin-inline: 20px;
+            color: black;
+        }
+        .main .outer .inner .login fieldset form{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 26px;
+            color: black;
+        }
+        .main .outer .inner .login fieldset form label{
+            margin: 0px 0px 0px 20px;
+        }
+        .main .outer .inner .login fieldset form input{
+            height: 20px;
+            width: 207px;
+            border:none;
+            background-color: transparent;
+            border-bottom: 2px solid black;
+            margin: 0px 0px 20px 20px;
+        }
+        .main .outer .inner .login fieldset form button{
+            border-radius: 5px;
+            height: 45px;
+            width: 100px;
+            font-family: math;
+            font-size: 18px;
+            font-weight: 800;
+            margin: 0px 0px 15px 20px;
+            background-color: #FF8D29;
+        }
+        .main .outer .inner .login fieldset form button:hover{
+            height: 45px;
+            width: 100px;
+            font-family: math;
+            font-size: 18px;
+            margin: 0px 0px 15px 20px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <input type="checkbox" name="pull" class="pull" id="pull">
+    <label for="pull" class="sidelogo"><i class="fa fa-sliders" aria-hidden="true" ></i></label>
+    <div class="sidebar">
+        <ul>
+            <li><i class="fa fa-home" aria-hidden="true"></i>Home</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+        </ul>
+        <ol>
+            <li><i class="fa fa-home" aria-hidden="true"></i>Home</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>Contact</li>
+        </ol>
+    </div>
+    <!-- Main 100vh 100vw -->
+    <div class="main">
+        <!-- Flex Box1 For Image -->
+        <div class="container">
+            <img src="https://cdn.pixabay.com/photo/2024/03/21/23/06/created-by-ai-8648630_1280.png" alt="">
+        </div>
+        <!-- Outer Box -->
+        <div class="outer">
+            <span class="title">Contra Zym</span>
+            <!-- Inner Box -->
+            <div class="inner">
+                <!-- Checkbox For Switch -->
+                <span class="login_logo"><a href="#">Login</a></span>
+                    <input type="checkbox" name="switch" class="switch" id="switch">
+                    <label for="switch" class="label">
+                            <div class="circle"></div>
+                    </label>
+                <span class="signin_logo"><a href="#">Signup</a></span>
+                <!-- Registration Form -->
+                <div class="registration">
+                    <fieldset>
+                        <legend>Registration Form</legend>
+                        <form action="">
+                            <label for="username">Username</label>
+                            <br>
+                            <input type="text" name="username" id="username">
+                            <br>
+                            <label for="password">Password</label>
+                            <br>
+                            <input type="password" name="password" id="password">
+                            <br>
+                            <label for="confirm_password">Confirm Password</label>
+                            <br>
+                            <input type="password" name="confirm_password" id="confirm_password">
+                            <br>
+                            <label for="number">Phone</label>
+                            <br>
+                            <input type="tel" name="number" id="number">
+                            <br>
+                            <br>
+                            <button type="submit">Submit</button>
+                            <button type="reset">Reset</button>
+                            <br>
+                        </form>
+                    </fieldset>
+                </div>
+                <!-- login Form -->
+                <div class="login">
+                        <fieldset>
+                            <legend>Login Form</legend>
+                            <form action="">
+                                <label for="username">Username</label>
+                                <br>
+                                <input type="text" name="username" id="username">
+                                <br>
+                                <label for="password">Password</label>
+                                <br>
+                                <input type="password" name="password" id="password">
+                                <br>
+                                <label for="confirm_password">Confirm Password</label>
+                                <br>
+                                <input type="password" name="confirm_password" id="confirm_password">
+                                <br>
+                                <label for="number">Phone</label>
+                                <br>
+                                <input type="tel" name="number" id="number">
+                                <br>
+                                <br>
+                                <button type="submit">Submit</button>
+                                <button type="reset">Reset</button>
+                                <br>
+                            </form>
+                        </fieldset>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
